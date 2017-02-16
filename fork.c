@@ -2,10 +2,11 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <sys/wait.h>
+#include <sys/types.h>
 int main(int argc, char * argv[])
 {
-	pid_t pid;
-
+	pid_t pid = 0;
+	int status = 0;
 	/*fork chiled process*/
 	pid = fork();
 	
@@ -15,13 +16,18 @@ int main(int argc, char * argv[])
 	}
 	else if(pid > 0)
 	{
-		wait(NULL);
-		printf("this is parent PID %d\n",getppid());
-	}	
+		wait(&status);
+		if(WEXITSTATUS(status))
+		{
+
+			printf("this is parent PID %d\n",getppid());
+		}
+	}
 	else 
 	{
 		printf("fork process failed\n");
 	}
 	
+
 	return 0;
 }

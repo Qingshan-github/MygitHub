@@ -1,0 +1,24 @@
+#include <stdio.h>
+#include <unstd.h>
+#include <stdlib.h>
+#include <sys/wait.h>
+#include <sys/type.h>
+
+int main()
+{
+	int fd[2];
+	int ret = pipe(fd);
+	if(ret < 0)
+	{
+		printf("create fail!\n");
+		exit(0);
+	}
+	close(fd[1]);
+	char buf[BUFSIZ];
+	while(1)
+	{
+
+		read(fd[0],buf,BUFSIZ);
+	}
+	return 0;
+}
